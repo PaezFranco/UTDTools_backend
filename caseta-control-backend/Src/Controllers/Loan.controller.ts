@@ -360,3 +360,152 @@ export const getLoansBasic = async (req: Request, res: Response) => {
     });
   }
 };
+
+// AGREGAR al final de Loan.controller.ts
+
+export const getStudentLoanHistory = async (req: Request, res: Response) => {
+  try {
+    const { studentEmail } = req.params;
+    
+    console.log(`Obteniendo historial completo para: ${studentEmail}`);
+    
+    // Buscar estudiante
+    const Student = require('../Models/Student.model').default;
+    const student = await Student.findOne({ email: studentEmail.toLowerCase() });
+    
+    if (!student) {
+      console.log('Estudiante no encontrado');
+      return res.json({
+        success: false,
+        message: 'Estudiante no encontrado',
+        history: [],
+        totalLoans: 0
+      });
+    }
+
+    console.log(`Estudiante encontrado: ${student.full_name} (ID: ${student._id})`);
+
+    // Buscar TODOS los préstamos del estudiante (activos, devueltos, vencidos)
+    const allLoans = await Loan.find({ 
+      student_id: student._id
+    })
+      .populate({
+        path: 'tools_borrowed.tool_id',
+        select: 'specificName generalName uniqueId category'
+      })
+      .sort({ loan_date: -1 }); // Más recientes primero
+
+    console.log(`Préstamos encontrados: ${allLoans.length}`);
+
+    // Procesar cada préstamo para el historial
+    const historyItems = [];
+    
+    for (const loan of allLoans) {
+      console.log(`Procesando préstamo: ${loan._id}, status: ${loan.status}`);
+      
+      for (const toolBorrowed of loan.tools_borrowed) {
+        const tool = toolBorrowed.tool_id as any;
+        
+        if (!tool) {
+          console.log('Herramienta no encontrada o no populada');
+          continue;
+        }
+
+        const loanDate = new Date(loan.loan_date);
+        const estimatedReturnDate = new Date(loan.estimated_return_date);
+        const actualReturnDate = loan.actual_return_date ? new Date(loan.actual_return_date) : null;
+        const now = new Date();
+        
+        // Determinar el tipo y estado del préstamo
+        let type = 'Préstamo';
+        let status = 'completed';
+        let duration = '';
+        
+        if (loan.status === 'active') {
+          if (now > estimatedReturnDate) {
+            type = 'Advertencia';
+            status = 'warning';
+            const overdueDays = Math.ceil((now.getTime() - estimatedReturnDate.getTime()) / (1000 * 60 * 60 * 24));
+            duration = `Retraso de ${overdueDays} día${overdueDays > 1 ? 's' : ''}`;
+          } else {
+            type = 'Préstamo Activo';
+            status = 'active';
+            const remainingHours = Math.ceil((estimatedReturnDate.getTime() - now.getTime()) / (1000 * 60 * 60));
+            duration = `${remainingHours}h restantes`;
+          }
+        } else if (loan.status === 'returned') {
+          type = 'Devolución';
+          status = 'completed';
+          if (actualReturnDate) {
+            const usedTime = Math.ceil((actualReturnDate.getTime() - loanDate.getTime()) / (1000 * 60 * 60));
+            duration = usedTime < 24 ? `${usedTime}h` : `${Math.ceil(usedTime / 24)} día${Math.ceil(usedTime / 24) > 1 ? 's' : ''}`;
+          }
+        } else if (loan.status === 'delayed') {
+          type = 'Alerta';
+          status = 'alert';
+          duration = 'Préstamo vencido';
+        }
+        
+        const historyItem = {
+          id: `${loan._id}-${tool._id}`,
+          name: tool.specificName || tool.generalName || 'Herramienta sin nombre',
+          type: type,
+          date: loanDate.toLocaleString('es-ES', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          }),
+          duration: duration,
+          category: tool.category || 'Sin categoría',
+          status: status,
+          quantity: toolBorrowed.quantity || 1,
+          loanDateTime: loan.loan_date,
+          estimatedReturnDateTime: loan.estimated_return_date,
+          actualReturnDateTime: loan.actual_return_date,
+          loanStatus: loan.status
+        };
+        
+        historyItems.push(historyItem);
+        console.log(`Agregado al historial: ${historyItem.name} - ${historyItem.type}`);
+      }
+    }
+
+    // Estadísticas del historial
+    const totalLoans = historyItems.length;
+    const completedLoans = historyItems.filter(item => item.status === 'completed').length;
+    const warningLoans = historyItems.filter(item => item.status === 'warning').length;
+    const alertLoans = historyItems.filter(item => item.status === 'alert').length;
+    const activeLoans = historyItems.filter(item => item.status === 'active').length;
+
+    console.log(`Historial procesado: ${totalLoans} items`);
+
+    res.json({
+      success: true,
+      student: {
+        name: student.full_name,
+        email: student.email,
+        studentId: student.student_id
+      },
+      history: historyItems,
+      totalLoans: totalLoans,
+      stats: {
+        completed: completedLoans,
+        active: activeLoans,
+        warnings: warningLoans,
+        alerts: alertLoans
+      }
+    });
+
+  } catch (error: any) {
+    console.error('Error completo en historial:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor',
+      error: error.message,
+      history: [],
+      totalLoans: 0
+    });
+  }
+};
