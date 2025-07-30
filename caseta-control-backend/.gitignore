@@ -1,0 +1,41 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+build/
+
+# Variables de entorno
+.env
+.env.*  # para .env.local, .env.production, etc.
+
+# Logs y errores
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Compilación de TypeScript
+*.tsbuildinfo
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Coverage (si haces tests)
+coverage/
+
+# Archivos opcionales del sistema
+*.swp
+*.swo
+
+# Ignorar scripts internos
+Src/Scripts/CreateAdmin.ts

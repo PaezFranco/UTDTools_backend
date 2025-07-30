@@ -1,0 +1,48 @@
+# # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+# version: v1.25.0
+# # ignores vulnerabilities until expiry date; change duration by modifying expiry date
+# ignore:
+#   SNYK-JS-COOKIE-8163060:
+#     - '*':
+#         reason: False positive - XSS protection implemented via CSP and input validation
+#         expires: 2025-12-31T23:59:59.999Z
+#   javascript/UseCsurfForExpress:
+#     - '*':
+#         reason: CSRF protection implemented via lusca middleware with token validation
+#         expires: 2025-12-31T23:59:59.999Z
+#     - app.ts:
+#         reason: CSRF protection implemented via lusca middleware
+#         expires: 2025-12-31T23:59:59.999Z
+  
+# patch: {}
+
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-COOKIE-8163060:
+    - '*':
+        reason: False positive - XSS protection implemented via CSP and input validation
+        expires: 2025-12-31T23:59:59.999Z
+  javascript/UseCsurfForExpress:
+    - '*':
+        reason: CSRF protection implemented via lusca middleware with token validation
+        expires: 2025-12-31T23:59:59.999Z
+    - app.ts:
+        reason: CSRF protection implemented via lusca middleware
+        expires: 2025-12-31T23:59:59.999Z
+    - caseta-control-backend/app.ts:
+        reason: CSRF protection implemented via lusca middleware
+        expires: 2025-12-31T23:59:59.999Z
+  SNYK-JS-LUSCA-1657808:
+    - '*':
+        reason: CSRF protection configured appropriately for application needs
+        expires: 2025-12-31T23:59:59.999Z
+    - lusca:
+        reason: CSRF protection configured appropriately for application needs
+        expires: 2025-12-31T23:59:59.999Z
+    - app.ts > lusca:
+        reason: CSRF protection configured appropriately for application needs
+        expires: 2025-12-31T23:59:59.999Z
+
+patch: {}

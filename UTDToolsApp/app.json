@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "UTD Tools",
+    "slug": "UTDToolsApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/utd.png",
+    "scheme": "utdtoolsapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/utd-adaptive.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "mx.utd.tools"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/utd-adaptive.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "mx.utd.tools",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE"
+      ],
+      "allowBackup": false,
+      "compileSdkVersion": 34,
+      "targetSdkVersion": 34
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/utd.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/utd-adaptive.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ace06f43-c743-4af3-9a00-29f5ff215eef"
+      }
+    }
+  }
+}

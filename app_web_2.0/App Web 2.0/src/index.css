@@ -1,0 +1,119 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 240 10% 3.9%; /* Dark blue-gray for text on white */
+    
+    --card: 0 0% 96%; /* Light gray for cards */
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 170 88% 25%; /* #0A7764 - New Dark Green for buttons */
+    --primary-foreground: 0 0% 98%; /* Almost white for text on green buttons */
+
+    --secondary: 45 99% 50%; /* #DCA901 - Gold as secondary */
+    --secondary-foreground: 240 10% 3.9%; 
+
+    --muted: 0 0% 90%; /* Lighter muted gray */
+    --muted-foreground: 240 5% 45%; /* Darker muted text */
+
+    --accent: 33 94% 44%; /* #D78909 - Orange as accent */
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 72% 51%; 
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 85%; /* Lighter border */
+    --input: 0 0% 92%; /* Lighter input background */
+    --ring: 170 88% 25%; /* #0A7764 for focus rings (dark green) */
+
+    --radius: 0.5rem;
+
+    /* Custom colors from palette */
+    --custom-white: 0 0% 100%; /* #FFFFFF */
+    --custom-gold: 45 99% 44%; /* #DCA901 */
+    --custom-teal: 163 88% 38%; /* #17A67D (Old Teal, kept for gradients if needed) */
+    --custom-orange: 33 94% 44%; /* #D78909 */
+    --custom-dark-teal: 170 88% 25%; /* #0A7764 (New Dark Teal) */
+  }
+
+  .dark {
+    /* Keeping dark theme for potential future use, but default is light now */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    --card: 240 10% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 170 88% 25%; /* Dark Green for buttons in dark mode too */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 45 99% 50%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 5% 25%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 33 94% 44%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 15%;
+    --input: 240 5% 15%;
+    --ring: 170 88% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background) / 0.5);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--secondary)); /* Gold scrollbar thumb */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--secondary) / 0.8);
+}
+
+.text-gradient-gold-teal {
+  background: linear-gradient(90deg, hsl(var(--custom-gold)) 0%, hsl(var(--custom-dark-teal)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-glassmorphism {
+  background: hsla(var(--custom-dark-teal-raw, 170 88% 25%) / 0.1); /* Dark Teal with low opacity */
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid hsla(var(--custom-gold-raw, 45 99% 44%) / 0.2); /* Gold border with low opacity */
+}
