@@ -80,7 +80,10 @@ app.use(helmet({
 // CORS con configuración estricta
 const corsOptions = {
   origin: function (origin: any, callback: any) {
-    const allowedOrigins = ['http://localhost:5173'];
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'https://utdtools.utdprojects.cloud'
+    ];
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
