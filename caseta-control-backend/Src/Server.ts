@@ -10,7 +10,7 @@
 //   console.log(` CORS configured for frontend: http://localhost:5173`);
 // });
 
-// ========== CARGAR VARIABLES DE ENTORNO PRIMERO ==========
+// ========== CARGAR VARIABLES DE ENTORNO PRIMERO =======
 import dotenv from 'dotenv';
 
 // Configurar dotenv para funcionar en todos los entornos
