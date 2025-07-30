@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc",
     "create-admin": "ts-node src/Scripts/CreateAdmin.ts"
   },
   "keywords": [],
@@ -34,7 +36,9 @@
     "mongoose": "^8.15.1",
     "morgan": "^1.10.0",
     "nodemailer": "^7.0.5",
-    "recharts": "^2.15.3"
+    "recharts": "^2.15.3",
+    "typescript": "^5.8.3",
+    "ts-node": "^10.9.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
@@ -53,7 +57,6 @@
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.2.0",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.0"
   }
 }
