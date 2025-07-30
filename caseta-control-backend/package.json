@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/server.ts",
+    "dev": "ts-node-dev --respawn Src/Server.ts",
     "start": "node dist/server.js",
     "build": "tsc",
-    "create-admin": "ts-node src/Scripts/CreateAdmin.ts"
+    "create-admin": "ts-node Src/Scripts/CreateAdmin.ts"
   },
   "keywords": [],
   "author": "",
