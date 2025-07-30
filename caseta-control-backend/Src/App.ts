@@ -34,6 +34,12 @@ import emailRoutes from './Routes/Email.routes';
 import { errorHandler } from './Middlewares/Error.middleware';
 
 const app = express();
+// ===== AGREGAR ESTAS LÍNEAS =====
+// Configurar trust proxy para Railway
+app.set('trust proxy', 1);
+
+// Deshabilitar CSRF en producción por ahora (para testing)
+const enableCSRF = false;
 
 app.disable('x-powered-by');
 
@@ -98,7 +104,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
-
+// ===== AGREGAR ESTA LÍNEA =====
+app.use(express.json({ limit: '10mb' }));
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
@@ -141,12 +148,12 @@ app.use(session({
 }));
 
 // CSRF habilitado solo en producción 
-if (process.env.NODE_ENV === 'production') {
+if (enableCSRF && process.env.NODE_ENV === 'production') {
   app.use(lusca({
     csrf: true
   }));
 } else {
-  console.log('🔓 CSRF protection disabled in development mode');
+  console.log('🔓 CSRF protection disabled for testing');
 }
 
 // Endpoint para obtener el token CSRF (si está habilitado)
