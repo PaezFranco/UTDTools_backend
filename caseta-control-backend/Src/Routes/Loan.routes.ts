@@ -8,7 +8,8 @@ import {
   getLoansByStudentId,
   getLoansByStudentCode,
   getActiveLoansSimple,
-  getLoansBasic
+  getLoansBasic,
+  getStudentLoanHistory  
 } from '../Controllers/Loan.controller';
 import { verifyToken, isAdmin, requireSupervisor } from '../Middlewares/Auth.middleware';
 
@@ -29,5 +30,6 @@ loanRouter.post('/', verifyToken, requireSupervisor, createLoan);
 // Ruta para devolver préstamo (requiere permisos de supervisor o admin)
 loanRouter.put('/:id/return', verifyToken, requireSupervisor, returnLoan);
 loanRouter.get('/active/:studentEmail', getActiveLoansSimple);
+loanRouter.get('/history/:studentEmail', getStudentLoanHistory);
 loanRouter.get('/basic-test', getLoansBasic);
 export default loanRouter;
