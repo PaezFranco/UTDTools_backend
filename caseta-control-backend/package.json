@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn Src/Server.ts",
-    "start": "node dist/server.js",
+    "start": "ts-node Src/server.ts",
     "build": "tsc",
     "create-admin": "ts-node Src/Scripts/CreateAdmin.ts"
   },
