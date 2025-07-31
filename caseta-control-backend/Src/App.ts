@@ -31,6 +31,7 @@ import overdueRoutes from './Routes/Overdue.routes';
 import reportsRoutes from './Routes/Reports.routes';
 import historyRoutes from './Routes/History.routes';
 import emailRoutes from './Routes/Email.routes';
+import esp32ProxyRoutes from './Routes/ESP32Proxy.routes';
 import { errorHandler } from './Middlewares/Error.middleware';
 
 const app = express();
@@ -371,6 +372,7 @@ app.use('/api/history', historyRoutes);
 // Rutas auxiliares
 app.use('/api/iasuggestions', iaSuggestionRoutes);
 app.use('/api/mobile', mobileRoutes);
+app.use('/api/esp32', esp32ProxyRoutes);
 
 // ========== ENDPOINTS DE SALUD Y ESTADO ==========
 
