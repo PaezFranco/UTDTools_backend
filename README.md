@@ -21,30 +21,30 @@ cd UTDTools_backend
 2. Configurar variables de entorno en la raíz del backend creando un archivo .env con:
 PORT=3000
   
-  # Base de datos
+  ## Base de datos
   MONGO_URI=mongodb+srv://lux:LUX_ACP25@clustercaseta.jf2kbgt.mongodb.net/sistema_control_caseta?retryWrites=true&w=majority&appName=ClusterCaseta
   
-  # Tokens
+  ## Tokens
   JWT_SECRET=xv9fN7g@p!B93DkYuz8La1$EeM*W0Zr
   REFRESH_TOKEN_SECRET=mV!jfNRo9*Wfonvdkkmc33$05G@18TVM*
   ACCESS_TOKEN_EXPIRES_IN=15m
   REFRESH_TOKEN_EXPIRES_IN=7d
   
-  # Secrets para seguridad 
+  ## Secrets para seguridad 
   SESSION_SECRET=kL9mN2pQ7wE5rT8yU1iO3sD6fG0hJ4aZ9xC2vB7nM5qW8eR1tY4uI6oP3sD9fG2hJ5kL8zA
   CSRF_SECRET=pQ2wE5rT8yU1iO6sD9fG3hJ5kL7nM4qW0eR6tY1uI8oP2sD5fG9hJ3kL7zA4xC6vB9nM2wE
   
-  # Entorno y CORS
-  # NODE_ENV=development
+  ## Entorno y CORS
+  ## NODE_ENV=development
   ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
   
-  # Admin script
+  ## Admin script
   ADMIN_PASSWORD=admin123
   
-  # Gemini API Key
+  ## Gemini API Key
   GEMINI_API_KEY=AIzaSyA9w55FEibrf4f-1sEG27TZACScZ2cjAdw
   
-  # Configuración de Gmail
+  ## Configuración de Gmail
   GMAIL_USER=utdtools@gmail.com
   GMAIL_APP_PASSWORD=rnvl ckad jpde zbnr
   MAIL_FROM_NAME=Sistema Préstamos UTD
